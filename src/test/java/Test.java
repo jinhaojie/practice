@@ -12,6 +12,8 @@ import com.jin.design.pattern.observer.IObserver;
  */
 public class Test {
 
+    public static ThreadLocal<User> threadLocal = new ThreadLocal<User>();
+
     public static void main(String[] args) {
         testObserver();
     }
@@ -41,5 +43,44 @@ public class Test {
         System.out.println("----------------------------------------------");
         subject.removeObserver(userZhang);
         subject.setInfomation("JAVA是世界上最好用的语言！");
+    }
+
+    /**
+     * ThreadLocal test
+     */
+    @org.junit.Test
+    public void test() {
+        User user = new User();
+        user.setName("jinhaojie");
+        threadLocal.set(user);
+
+        User rst = threadLocal.get();
+        System.out.println(rst.getName());
+
+        new Thread(){
+            @Override
+            public void run() {
+                User user = new User();
+                user.setName("zhangsan");
+                threadLocal.set(user);
+                User rst = threadLocal.get();
+                System.out.println(rst.getName());
+            }
+        }.start();
+    }
+
+
+}
+
+
+class User{
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
