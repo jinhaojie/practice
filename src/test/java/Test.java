@@ -15,6 +15,9 @@ public class Test {
     public static ThreadLocal<User> threadLocal = new ThreadLocal<User>();
 
     public static void main(String[] args) {
+        long a = 1;
+        float b= a;
+
         testObserver();
     }
 
@@ -67,6 +70,32 @@ public class Test {
                 System.out.println(rst.getName());
             }
         }.start();
+    }
+
+    @org.junit.Test
+    public void testJoin() {
+        Thread t1 = new Thread() {
+            @Override
+            public void run() {
+                System.out.println("thread1");
+                try {
+                    sleep(5000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        try {
+            t1.start();
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("main thread");
+
+
     }
 
 
