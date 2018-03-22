@@ -5,6 +5,9 @@ import com.jin.design.pattern.observer.ConcreteObserver;
 import com.jin.design.pattern.observer.ConcreteSubject;
 import com.jin.design.pattern.observer.IObserver;
 
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+
 /**
  * @description
  * @auth jhj
@@ -96,6 +99,46 @@ public class Test {
         System.out.println("main thread");
 
 
+    }
+
+    @org.junit.Test
+    public void testReference() {
+
+        final ReferenceQueue queue = new ReferenceQueue();
+
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                }
+
+
+                System.out.println("start");
+                User user = new User();
+                user.setName("jh1");
+                SoftReference<User> softReference = new SoftReference<User>(user, queue);
+                user = null;
+                System.gc();
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        t.start();
+
+
+
+        while (true) {
+            while (queue.poll() != null) {
+                System.out.println("queue is not null");
+            }
+        }
     }
 
 
