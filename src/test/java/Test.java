@@ -13,15 +13,44 @@ import java.lang.ref.SoftReference;
  * @auth jhj
  * @date 18-2-10 上午11:06
  */
+
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        while (true) {
+            if (this.isInterrupted()) {
+                System.out.println("end");
+                return;
+            }
+        }
+    }
+}
+
+class MyRunnable implements Runnable {
+
+    @Override
+    public void run() {
+        System.out.println("hello mythread");
+    }
+}
+
 public class Test {
 
     public static ThreadLocal<User> threadLocal = new ThreadLocal<User>();
 
     public static void main(String[] args) {
-        long a = 1;
-        float b= a;
 
-        testObserver();
+        MyThread myThread = new MyThread();
+        myThread.start();
+        try {
+            Thread.sleep(2000);
+            myThread.interrupt();
+            Thread.sleep(2000);
+            System.out.println("main end");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static void testDecorator() {
