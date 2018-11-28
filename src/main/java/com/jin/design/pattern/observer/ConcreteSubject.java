@@ -1,7 +1,5 @@
 package com.jin.design.pattern.observer;
 
-import javafx.event.Event;
-
 import java.util.ArrayList;
 import java.util.List;
 
