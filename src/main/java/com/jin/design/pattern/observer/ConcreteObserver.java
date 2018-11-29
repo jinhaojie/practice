@@ -13,6 +13,7 @@ public class ConcreteObserver implements IObserver{
         this.name = name;
     }
 
+    @Override
     public void update(String message) {
         this.message = message;
         read();

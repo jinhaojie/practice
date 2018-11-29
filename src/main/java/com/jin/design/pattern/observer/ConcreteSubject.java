@@ -13,14 +13,17 @@ public class ConcreteSubject implements ISubject {
     List<IObserver> observers = new ArrayList<IObserver>();
     private String message;
 
+    @Override
     public void addObserver(IObserver observer) {
         observers.add(observer);
     }
 
+    @Override
     public void removeObserver(IObserver observer) {
         observers.remove(observer);
     }
 
+    @Override
     public void notifyObserver() {
         for(int i = 0; i < observers.size(); i++) {
             IObserver oserver = observers.get(i);
