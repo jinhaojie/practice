@@ -7,6 +7,7 @@ import com.jin.design.pattern.observer.IObserver;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
+import java.util.Objects;
 
 /**
  * @description
@@ -34,22 +35,22 @@ class MyRunnable implements Runnable {
     }
 }
 
+
+
 public class Test {
+    private static final int COUNT_BITS = Integer.SIZE - 3;
+    private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
 
     public static ThreadLocal<User> threadLocal = new ThreadLocal<User>();
 
     public static void main(String[] args) {
 
-        MyThread myThread = new MyThread();
-        myThread.start();
-        try {
-            Thread.sleep(2000);
-            myThread.interrupt();
-            Thread.sleep(2000);
-            System.out.println("main end");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println(COUNT_BITS);
+
+        System.out.println(1 << COUNT_BITS);
+        System.out.println(CAPACITY);
+        System.out.println(~CAPACITY);
+        System.out.println(Math.pow(2.0, 29));
 
     }
 
@@ -171,6 +172,23 @@ public class Test {
     }
 
 
+    public static final ThreadLocal<String> firstThreadLcoal = new ThreadLocal<>();
+    public static final ThreadLocal<String> secondThreadLcoal = new ThreadLocal<>();
+
+    @org.junit.Test
+    public void testThreadLocal() {
+
+        firstThreadLcoal.get();
+        secondThreadLcoal.get();
+
+        firstThreadLcoal.set("first");
+        secondThreadLcoal.set("second");
+
+
+    }
+
+
+
 }
 
 
@@ -183,5 +201,21 @@ class User{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public static void main(String[] args) {
+
+        /**需要考虑空指针的地方*/
+
+        // 1.给基本类型赋值包装类型
+        Integer b = null;
+        int a = b;
+
+        // 2.包装类型类型的算术比较和取值 >,==,<,对于==和!=推荐使用 Objects.equals避免控制正
+        Integer c = null, d = null;
+        Objects.equals(c, d);
+
+
     }
 }
