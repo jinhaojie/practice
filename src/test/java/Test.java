@@ -7,6 +7,7 @@ import com.jin.design.pattern.observer.IObserver;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -45,12 +46,16 @@ public class Test {
 
     public static void main(String[] args) {
 
-        System.out.println(COUNT_BITS);
+//        System.out.println(COUNT_BITS);
+//
+//        System.out.println(1 << COUNT_BITS);
+//        System.out.println(CAPACITY);
+//        System.out.println(~CAPACITY);
+//        System.out.println(Math.pow(2.0, 29));
 
-        System.out.println(1 << COUNT_BITS);
-        System.out.println(CAPACITY);
-        System.out.println(~CAPACITY);
-        System.out.println(Math.pow(2.0, 29));
+        BigDecimal test = new BigDecimal("2.1200");
+        System.out.println(test.toString());
+        System.out.println(test.stripTrailingZeros());
 
     }
 
